@@ -44,4 +44,88 @@ router.post('/',
     }
 );
 
+// @route GET api/posts
+// @desc  Get all posts
+// @acess Private
+
+router.get('/', auth, async (req, res) => {
+    try {
+        const posts = await Post.find().sort({ date: -1 });
+        res.json(posts);
+    }catch(err)  {
+        console.log('err in posts.js get', err.message);
+    }
+});
+
+
+// @route GET api/posts/:id
+// @desc  Get post by ID
+// @acess Private
+
+router.get('/:id', auth, async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+
+        if(!post) {
+            return res.status(404).json({ msg: 'Post not found'});
+        }
+        res.json(post);
+    } catch(err) {
+        console.log('err in posts.js get', err.message);
+        if(err.kind === 'ObjectId') {
+            return res.status(404).json({ msg: 'Post not found'});
+        }
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route DELETE api/posts/:id
+// @desc  Delete a post
+// @acess Private
+
+router.delete('/:id', auth, async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+
+        if(!post) {
+            return res.status(404).json({ msg: 'Post not found'});
+        }
+
+        //Check User
+        if(post.user.toString() !== req.user.id) {
+            return res.status(401).json({ msg: 'User not authorized' });
+        }
+        await post.remove();
+        res.json({ msg: 'Post removed'});
+    } catch(err) {
+        console.log('err in posts.js get', err.message);
+        if(err.kind === 'ObjectId') {
+            return res.status(404).json({ msg: 'Post not found'});
+        }
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route PUT api/posts/like/:id
+// @desc  Like a post
+// @acess Private
+
+router.put('/like:id', auth, async (req, res) => {
+    try{
+        const post = await Post.findById(req.params.id);
+        //Check if the post has already been liked by this user
+        if(post.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
+            return res.json(400).json({ msg: 'Post already liked'});
+        }
+
+        post.likes.unshift({ user: req.user.id });
+        await post.save();
+        res.json(post.likes);
+
+    } catch(err) {
+        console.log('err in like', err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
 module.exports = router;
