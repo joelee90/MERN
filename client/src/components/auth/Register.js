@@ -103,16 +103,16 @@ export default connect(mapStateToProps, { setAlert, register })(Register);
 
 {/* onsubmit, after else
 making axios request from client and registering a new user, checked the db in mongodb
-const newUser = {name, email, password}
-            try {
-                const config = {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
-                const body = JSON.stringify(newUser);
-                const res = await axios.post('/api/users', body, config);
-                console.log(res.data);
-            } catch (err) {
-                console.log(err.response.data);
-            } */}
+const newUser = { name, email, password }
+try {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    const body = JSON.stringify(newUser);
+    const res = await axios.post('/api/users', body, config);
+    console.log(res.data);
+} catch (err) {
+    console.log(err.response.data);
+} */}
