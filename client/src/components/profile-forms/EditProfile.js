@@ -3,7 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createProfile, getCurrentProfile } from "../../actions/profile";
-import { get } from "https";
+// import { get } from "https";
 
 const EditProfile = ({
     profile: { profile, loading },
