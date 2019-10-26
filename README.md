@@ -2,7 +2,7 @@
 
 This is an online community web application for developers to share ideas. The goal of this project was to learn about MERN-Stack (MongoDB, Express.js, React, Redux, Node.js) and create a full-stack web application.
 
-live at
+https://developer-community-mern-stack.herokuapp.com/
 
 ## Features
 
