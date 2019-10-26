@@ -66,7 +66,7 @@ const Profile = ({
                                     ))}
                                 </Fragment>
                             ) : (
-                                <h4>No education crednetials</h4>
+                                <h4>No education credentials</h4>
                             )}
                         </div>
                         {profile.githubusername && (
