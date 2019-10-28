@@ -1,6 +1,0 @@
-{
-    "mongoURI": "mongodb+srv://joelee:joelee@merncluster-woixg.mongodb.net/test?retryWrites=true&w=majority",
-    "jwtSecret": "mysecrettoken",
-    "githubClientId": "91426deed241d07b2e00",
-    "githubSecret": "34092d3536a7133559d7e71070c102d1df2b8c5d"
-}
